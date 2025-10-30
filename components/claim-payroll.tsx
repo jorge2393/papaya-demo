@@ -72,6 +72,31 @@ export function ClaimPayroll() {
     return () => clearInterval(pollInterval);
   }, [isPolling, wallet]);
 
+  // After an Offramp completes, start a short balance polling 3s later
+  useEffect(() => {
+    const handler = () => {
+      if (!wallet) return;
+      const timeout = setTimeout(() => {
+        // Start a short 30s poll every 3s
+        let elapsed = 0;
+        const interval = setInterval(async () => {
+          elapsed += 3000;
+          try {
+            const b = await wallet.balances([USDC_TOKEN]);
+            setBalances(b);
+          } catch {}
+          if (elapsed >= 30000) {
+            clearInterval(interval);
+          }
+        }, 3000);
+      }, 3000);
+      return () => clearTimeout(timeout);
+    };
+    const listener = () => { handler(); };
+    window.addEventListener('offramp:success', listener);
+    return () => window.removeEventListener('offramp:success', listener);
+  }, [wallet]);
+
   const formatBalance = (balance: string) => {
     return Number(balance).toFixed(2);
   };

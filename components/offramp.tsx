@@ -66,6 +66,12 @@ export function Offramp() {
   // On success: increment mock bank balance and reset form after message
   useEffect(() => {
     if (transferStatus === "success") {
+      // Notify other components after success
+      try {
+        window.dispatchEvent(
+          new CustomEvent('offramp:success', { detail: { amount } })
+        );
+      } catch {}
       // Increment bank balance by the last successful amount
       if (amount && amount > 0) {
         setBankBalance((prev) => Number((prev + amount).toFixed(2)));
