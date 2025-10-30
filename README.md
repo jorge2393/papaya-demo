@@ -50,7 +50,7 @@ cp .env.example .env
 **Required Variables:**
 - `NEXT_PUBLIC_CROSSMINT_API_KEY`: Get from [Crossmint Dashboard](https://docs.crossmint.com/introduction/platform/api-keys/client-side)
 - `NEXT_PUBLIC_CHAIN`: Set to `base-sepolia` for Base Sepolia testnet
-- `RAIN_API_KEY`: Get from [Rain Dashboard](https://rain.app) for virtual card functionality
+- `RAIN_API_KEY`: Get from [Rain Dashboard](https://rain.xyz) for virtual card functionality
 - `NEXT_PUBLIC_TREASURY_ADDRESS`: Treasury wallet address for offramp functionality
 
 **Optional Variables:**
@@ -74,7 +74,6 @@ bun dev
 
 ## User Flow
 
-This repo is designed to be read and understood by clients. It demonstrates a complete, production-style flow using Crossmint and Rain.
 
 ### 0) Auth and Wallet Creation
 - User logs in with email and verifies with OTP 1.
